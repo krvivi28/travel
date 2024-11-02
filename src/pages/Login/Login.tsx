@@ -77,10 +77,15 @@ const Login = () => {
   return (
     <div className="h-screen flex items-center justify-center">
       {loader && <Loader />}
-      <div className="flex w-[400px] p-8 flex-col gap-6 rounded-md shadow-md">
-        <h1 className="font-medium text-2xl">
-          Sky<span className="text-[#0052CC]">Travels</span>
-        </h1>
+      <div className="flex w-[400px] p-8 flex-col gap-6 rounded-md items-center justify-center">
+        <img
+          style={{ width: "200px" }}
+          src="https://thailand.k1travels.com/admin/images/logo.jpeg"
+          alt=""
+        />
+        {/* <h1 className="font-medium text-2xl">
+          Sky<span className="text-[#0052CC]">Login</span>
+        </h1> */}
         <input
           className={inputClass}
           type="text"
@@ -108,7 +113,7 @@ const Login = () => {
           />
         )}
         <button
-          className={`py-2.5 px-3.5 rounded-md border border-solid border-[#1570EF] shadow-md ${
+          className={`py-2.5 px-3.5 w-full rounded-md border border-solid border-[#1570EF] shadow-md ${
             isAuthBtnDisabled ? "bg-[#4c81cb]" : "bg-[#1570EF]"
           }`}
           onClick={handleLogin}
