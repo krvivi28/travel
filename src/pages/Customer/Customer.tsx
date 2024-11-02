@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Table from "./Table";
+
 import { FaEdit, FaSortUp, FaSortDown } from "react-icons/fa";
 
 type Customer = {

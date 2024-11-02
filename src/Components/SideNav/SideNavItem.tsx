@@ -6,14 +6,17 @@ const SideNavItem: React.FC<IPropsSideNavItem> = ({
   icon,
   label,
   isCollapsed,
+  isActive,
 }) => (
-  
   <Link
     to={to}
-    className="flex items-center p-2 text-base-content hover:bg-primary hover:text-white rounded-md"
+    className={`flex items-center p-2 rounded-md transition-colors ${
+      isActive ? "bg-primary text-white" : "hover:bg-primary hover:text-white"
+    }`}
   >
     <div className="text-xl ml-3">{icon}</div>
     {!isCollapsed && <span className="ml-3">{label}</span>}
   </Link>
 );
+
 export default SideNavItem;
