@@ -6,7 +6,8 @@ import Layout from "./Layout";
 import ProtectedRoute from "./ProtectedRoute";
 import Customers from "../pages/Customer/Customer";
 import PageNotFound from "../pages/404/PageNotFound";
-import CalculateB2B from "../pages/CalculateB2B/CalculateB2B";
+import EditTravelPackage from "@src/pages/edit-package";
+
 
 const routes: RouteObject[] = [
   {
@@ -29,7 +30,7 @@ const routes: RouteObject[] = [
         children: [
           {
             path: ":id",
-            element: <CalculateB2B />,
+            element: <EditTravelPackage />,
           },
         ],
       },
