@@ -23,7 +23,7 @@
     // rules
     "baseUrl": "./",
     "paths": {
-      "@src/*":["@src/*"],
+      "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@screens/*": ["src/screens/*"]
     },

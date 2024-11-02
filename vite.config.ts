@@ -1,17 +1,17 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import path from 'path';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    port:3000,
+    port: 3000,
   },
-   resolve: {
+  resolve: {
     alias: {
-      '@src': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@screens': path.resolve(__dirname, './src/screens')
-    }
-  }
-})
+      "@src": path.resolve(__dirname, "./src"),
+      "@components": path.resolve(__dirname, "./src/components"),
+      "@screens": path.resolve(__dirname, "./src/screens"),
+    },
+  },
+});
