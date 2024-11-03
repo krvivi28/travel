@@ -12,7 +12,7 @@ export const HotelInfo: React.FC<HotelInfoProps> = ({
   onRemove,
   onChange,
 }) => (
-  <div className="flex flex-col items-center justify-center gap-5">
+  <div className="flex flex-col items-start justify-center gap-5">
     <div className="divider">
       <span className="text-5xl">Hotel Info</span>
     </div>

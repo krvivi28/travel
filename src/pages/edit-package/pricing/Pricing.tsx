@@ -13,7 +13,7 @@ export const Pricing: React.FC<PricingProps> = ({ pricing, setPricing }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-5">
+    <div className="flex flex-col items-start justify-center gap-5">
       <div className="divider">
         <span className="text-5xl">Pricing</span>
       </div>
