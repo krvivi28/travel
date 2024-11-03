@@ -4,97 +4,88 @@ import { HotelInfo } from "./hotel-info/HotelInfo";
 import { TransportInfo } from "./transport-info/TransportInfo";
 import { SightseeingInfo } from "./sight-seeing-info/SightSeeingInfo";
 import { Pricing } from "./pricing/Pricing";
+import {
+  createInitialBasicState,
+  createInitialHotelState,
+  createInitialPricingState,
+  createInitialSightseeingState,
+  createInitialTransportState,
+} from "./utility";
+import {
+  IBasicInfo,
+  IHotelInfo,
+  IPricing,
+  ISightseeingInfo,
+  ITransportInfo,
+} from "./interface";
 
 const EditTravelPackage: React.FC = () => {
-  const [formData, setFormData] = useState<IFormData>({
-    customerName: "",
-    phoneNumber: "",
-    travelDate: "",
-    noOfNights: 0,
-    noOfAdult: 0,
-    noOfChild: 0,
-    city: "Bangkok",
-    hotel: "Grand Alpine Hotel 3*",
-    roomCategory: "Superior Room",
-    nights: 1,
-    exAdult: 1,
-    exChild: 4,
-    checkInDate: "",
-    transportCity: "All",
-    transport: "01 Way Taxi From Bangkok Hotel to ...",
-    transportPersonCount: "5-10 PAX",
-    transportDate: "",
-    sightseeingCity: "Bangkok",
-    sightseeing: "Sky walk daytime Tickets (Bangkok)",
-    noOfAdultSightseeing: 5,
-    noOfChildSightseeing: 4,
-    sightseeingDate: "",
-    remarks: "",
-    thbToInrRate: 2.6,
-    serviceCharge: 5,
-    totalThb: 15820,
-  });
+  const [basicInfo, setBasicInfo] = useState<IBasicInfo>(
+    createInitialBasicState()
+  );
+  const [hotelInfo, setHotelInfo] = useState<IHotelInfo[]>([
+    createInitialHotelState(),
+  ]);
+  const [transportInfo, setTransportInfo] = useState<ITransportInfo[]>([
+    createInitialTransportState(),
+  ]);
+  const [sightseeingInfo, setSightseeingInfo] = useState<ISightseeingInfo[]>([
+    createInitialSightseeingState(),
+  ]);
+  const [pricing, setPricing] = useState<IPricing>(createInitialPricingState());
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+  const handleAdd = <T,>(
+    setter: React.Dispatch<React.SetStateAction<T[]>>,
+    creator: () => T
   ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setter((prev) => [...prev, creator()]);
   };
-  console.log({ formData });
+
+  const handleRemove =
+    <T,>(setter: React.Dispatch<React.SetStateAction<T[]>>) =>
+    (index: number) => {
+      setter((prev) => prev.filter((_, i) => i !== index));
+    };
+
+  const handleChange =
+    <T,>(setter: React.Dispatch<React.SetStateAction<T[]>>) =>
+    (index: number, field: keyof T, value: T[keyof T]) => {
+      setter((prev) =>
+        prev.map((item, i) =>
+          i === index ? { ...item, [field]: value } : item
+        )
+      );
+    };
 
   return (
     <div className="p-6 card gap-10">
       <span className="text-5xl">Make Your Thailand Package</span>
       <div className="w-full flex flex-col gap-20 p-5">
-        <BasicInfo formData={formData} handleChange={handleChange} />
-        <HotelInfo formData={formData} handleChange={handleChange} />
-        <TransportInfo formData={formData} handleChange={handleChange} />
-        <SightseeingInfo formData={formData} handleChange={handleChange} />
-        <Pricing formData={formData} handleChange={handleChange} />
+        <BasicInfo basicInfo={basicInfo} setBasicInfo={setBasicInfo} />
+        <HotelInfo
+          entries={hotelInfo}
+          onAdd={() => handleAdd(setHotelInfo, createInitialHotelState)}
+          onRemove={handleRemove(setHotelInfo)}
+          onChange={handleChange(setHotelInfo)}
+        />
+        <TransportInfo
+          entries={transportInfo}
+          onAdd={() => handleAdd(setTransportInfo, createInitialTransportState)}
+          onRemove={handleRemove(setTransportInfo)}
+          onChange={handleChange(setTransportInfo)}
+        />
+        <SightseeingInfo
+          entries={sightseeingInfo}
+          onAdd={() =>
+            handleAdd(setSightseeingInfo, createInitialSightseeingState)
+          }
+          onRemove={handleRemove(setSightseeingInfo)}
+          onChange={handleChange(setSightseeingInfo)}
+        />
+        <Pricing pricing={pricing} setPricing={setPricing} />
       </div>
     </div>
   );
 };
 
 export default EditTravelPackage;
-
-interface IFormData {
-  customerName: string;
-  phoneNumber: string;
-  travelDate: string;
-  noOfNights: number;
-  noOfAdult: number;
-  noOfChild: number;
-  city: string;
-  hotel: string;
-  roomCategory: string;
-  nights: number;
-  exAdult: number;
-  exChild: number;
-  checkInDate: string;
-  transportCity: string;
-  transport: string;
-  transportPersonCount: string;
-  transportDate: string;
-  sightseeingCity: string;
-  sightseeing: string;
-  noOfAdultSightseeing: number;
-  noOfChildSightseeing: number;
-  sightseeingDate: string;
-  remarks: string;
-  thbToInrRate: number;
-  serviceCharge: number;
-  totalThb: number;
-}
-
-export interface IInfoProps {
-  formData: IFormData;
-  handleChange: (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => void;
-}
