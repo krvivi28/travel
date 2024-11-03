@@ -22,9 +22,13 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
       <div>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="btn btn-ghost m-2 flex justify-center"
+          className="btn btn-ghost m-1 flex justify-center text-xl"
         >
-          {isCollapsed ? <FiChevronRight size={20} /> : <FiChevronLeft size={20} />}
+          {isCollapsed ? (
+            <FiChevronRight size={20} />
+          ) : (
+            <FiChevronLeft size={20} />
+          )}
         </button>
 
         <div className="flex flex-col gap-2 mt-4">
