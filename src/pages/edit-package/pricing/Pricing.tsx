@@ -38,7 +38,7 @@ export const Pricing: React.FC<PricingProps> = ({ pricing, setPricing }) => {
         />
       </div>
       <button
-        onClick={() => alert("Calculate Pricing")}
+        onClick={() => alert("WIP")} // TODO: to fix price calculation logic
         className="btn btn-primary mt-6 col-span-3"
       >
         Calculate
