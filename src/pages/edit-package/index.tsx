@@ -18,6 +18,7 @@ import {
   ISightseeingInfo,
   ITransportInfo,
 } from "./interface";
+import { TextArea } from "@src/components";
 
 const EditTravelPackage: React.FC = () => {
   const [basicInfo, setBasicInfo] = useState<IBasicInfo>(
@@ -33,6 +34,7 @@ const EditTravelPackage: React.FC = () => {
     createInitialSightseeingState(),
   ]);
   const [pricing, setPricing] = useState<IPricing>(createInitialPricingState());
+  const [remarks, setRemarks] = useState<string>("");
 
   const handleAdd = <T,>(
     setter: React.Dispatch<React.SetStateAction<T[]>>,
@@ -60,7 +62,7 @@ const EditTravelPackage: React.FC = () => {
   return (
     <div className="p-6 card gap-10">
       <span className="text-5xl">Make Your Thailand Package</span>
-      <div className="w-full flex flex-col gap-20 p-5">
+      <div className="w-full flex flex-col gap-10 p-5">
         <BasicInfo basicInfo={basicInfo} setBasicInfo={setBasicInfo} />
         <HotelInfo
           entries={hotelInfo}
@@ -82,6 +84,15 @@ const EditTravelPackage: React.FC = () => {
           onRemove={handleRemove(setSightseeingInfo)}
           onChange={handleChange(setSightseeingInfo)}
         />
+        <div>
+          <div className="divider divider-info" />
+          <TextArea
+            label="Remarks"
+            name="remarks"
+            value={remarks}
+            onChange={(e) => setRemarks(e.target.value)}
+          />
+        </div>
         <Pricing pricing={pricing} setPricing={setPricing} />
       </div>
     </div>

@@ -19,7 +19,9 @@ export const BasicInfo: React.FC<BasicInfoProps> = ({
 
   return (
     <div className="flex flex-col items-center justify-center gap-5">
-      <h2 className="text-5xl">Basic Info</h2>
+      <div className="divider">
+        <span className="text-5xl">Basic Info</span>
+      </div>
       <div className="grid grid-cols-3 gap-4 w-full">
         <Input
           label="Customer Name:"

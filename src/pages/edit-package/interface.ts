@@ -23,7 +23,6 @@ export interface IHotelInfo {
 }
 
 export interface ITransportInfo {
-  remarks: string;
   transportCity: string;
   transport: string;
   transportPersonCount: string;

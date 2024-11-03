@@ -1,11 +1,12 @@
 import React from "react";
-import { Select, Date, TextArea } from "@src/components";
+import { Select, Date } from "@src/components";
 import { ITransportInfo } from "../interface";
 import {
   cityOptions,
   transportOptions,
   transportPersonCounts,
 } from "../constants";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 interface TransportInfoProps {
   entries: ITransportInfo[];
@@ -20,47 +21,49 @@ export const TransportInfo: React.FC<TransportInfoProps> = ({
   onRemove,
   onChange,
 }) => (
-  <div className="flex flex-col gap-5">
-    <h2 className="text-xl font-semibold">Transport Info</h2>
+  <div className="flex flex-col items-start justify-center gap-5">
+    <div className="divider">
+      <span className="text-5xl">Transport Info</span>
+    </div>
     {entries.map((entry, index) => (
-      <div key={index} className="grid grid-cols-3 gap-4">
-        <Select
-          label="City"
-          name="transportCity"
-          value={entry.transportCity}
-          onChange={(e) => onChange(index, "transportCity", e.target.value)}
-          options={cityOptions}
-        />
-        <Select
-          label="Transport"
-          name="transport"
-          value={entry.transport}
-          onChange={(e) => onChange(index, "transport", e.target.value)}
-          options={transportOptions}
-        />
-        <Select
-          label="No of Person"
-          name="transportPersonCount"
-          value={entry.transportPersonCount}
-          onChange={(e) =>
-            onChange(index, "transportPersonCount", e.target.value)
-          }
-          options={transportPersonCounts}
-        />
-        <Date
-          label="Date"
-          name="transportDate"
-          value={entry.transportDate}
-          onChange={(e) => onChange(index, "transportDate", e.target.value)}
-        />
-        <TextArea
-          label="Remarks"
-          name="remarks"
-          value={entry.remarks}
-          onChange={(e) => onChange(index, "remarks", e.target.value)}
-        />
-        <button className="btn btn-error" onClick={() => onRemove(index)}>
-          Remove
+      <div key={index} className="flex items-end justify-center gap-4 w-full">
+        <div className="grid grid-cols-4 gap-3 w-[90%]">
+          <Select
+            label="City:"
+            name="transportCity"
+            value={entry.transportCity}
+            onChange={(e) => onChange(index, "transportCity", e.target.value)}
+            options={cityOptions}
+          />
+          <Select
+            label="Transport:"
+            name="transport"
+            value={entry.transport}
+            onChange={(e) => onChange(index, "transport", e.target.value)}
+            options={transportOptions}
+          />
+          <Select
+            label="No of Person:"
+            name="transportPersonCount"
+            value={entry.transportPersonCount}
+            onChange={(e) =>
+              onChange(index, "transportPersonCount", e.target.value)
+            }
+            options={transportPersonCounts}
+          />
+          <Date
+            label="Date:"
+            name="transportDate"
+            value={entry.transportDate}
+            onChange={(e) => onChange(index, "transportDate", e.target.value)}
+          />
+        </div>
+        <button
+          disabled={entries?.length === 1}
+          className="btn btn-error btn-circle text-2xl"
+          onClick={() => onRemove(index)}
+        >
+          <RiDeleteBinLine />
         </button>
       </div>
     ))}
