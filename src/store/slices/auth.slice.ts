@@ -47,10 +47,7 @@ export const login = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const res = await axios.post(
-        `${baseURL}/api/hodophilia/auth/login`,
-        credentials
-      );
+      const res = await axios.post(`${baseURL}/auth/login`, credentials);
       return res.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error || error;
