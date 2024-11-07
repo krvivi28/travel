@@ -2,7 +2,7 @@ import React, { useState, forwardRef } from "react";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
 
 interface IInputProps extends React.ComponentPropsWithoutRef<"input"> {
-  label: string;
+  label?: string;
   error?: string;
   showPasswordToggle?: boolean;
   variant?: "solid" | "outline" | "ghost";

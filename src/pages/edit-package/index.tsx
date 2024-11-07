@@ -20,6 +20,8 @@ import {
 } from "./interface";
 import { TextArea } from "@src/components";
 
+{}
+
 const EditTravelPackage: React.FC = () => {
   const [basicInfo, setBasicInfo] = useState<IBasicInfo>(
     createInitialBasicState()
