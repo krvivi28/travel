@@ -3,6 +3,8 @@ import { useState, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../components/Loader/Loader";
+import logo from "../../assets/logo.svg";
+import Metadata from "@src/router/Metadata";
 
 const inputClass =
   "border border-solid border-[#D0D7DE] rounded-md px-3 py-2 w-full text-base font-normal";
@@ -75,70 +77,69 @@ const Login = () => {
   }, [authCreds, isLoginWindow]);
 
   return (
-    <div className="h-screen flex items-center justify-center">
-      {loader && <Loader />}
-      <div className="flex w-[400px] p-8 flex-col gap-6 rounded-md items-center justify-center">
-        <img
-          style={{ width: "200px" }}
-          src="https://thailand.k1travels.com/admin/images/logo.jpeg"
-          alt=""
-        />
-        {/* <h1 className="font-medium text-2xl">
-          Sky<span className="text-[#0052CC]">Login</span>
-        </h1> */}
-        <input
-          className={inputClass}
-          type="text"
-          name="email"
-          placeholder="Enter your email"
-          onChange={handleChange}
-          value={authCreds.email}
-        />
-        <input
-          className={inputClass}
-          type="password"
-          name="password"
-          placeholder="Enter your password"
-          onChange={handleChange}
-          value={authCreds.password}
-        />
-        {!isLoginWindow && (
+    <>
+      <Metadata title="Login-SmartFares" />
+      <div className="h-screen flex items-center justify-center">
+        {loader && <Loader />}
+        <div className="flex w-[400px] p-8 flex-col gap-6 rounded-md items-center justify-center">
+          <img src={logo} alt="" />
+          {/* <h1 className="font-medium text-2xl">
+            Hodophil!a <span className="text-[#0052CC]">Holidays</span>
+          </h1> */}
+          <input
+            className={inputClass}
+            type="text"
+            name="email"
+            placeholder="Enter your email"
+            onChange={handleChange}
+            value={authCreds.email}
+          />
           <input
             className={inputClass}
             type="password"
-            name="confirmPassword"
-            placeholder="Confirm your password"
+            name="password"
+            placeholder="Enter your password"
             onChange={handleChange}
-            value={authCreds.confirmPassword}
+            value={authCreds.password}
           />
-        )}
-        <button
-          className={`py-2.5 px-3.5 w-full rounded-md border border-solid border-[#1570EF] shadow-md ${
-            isAuthBtnDisabled ? "bg-[#4c81cb]" : "bg-[#1570EF]"
-          }`}
-          onClick={handleLogin}
-          disabled={isAuthBtnDisabled}
-        >
-          <p className="text-white font-semibold text-sm">
-            {isLoginWindow ? "Login" : "Signup"}
-          </p>
-        </button>
-
-        <div className="flex items-center justify-center gap-1 text-sm font-normal">
-          <p className="text-[#4A5568]">
-            {isLoginWindow
-              ? "Don’t have an account?"
-              : "Already have an account?"}
-          </p>
-          <p
-            onClick={() => setIsLoginWindow(!isLoginWindow)}
-            className="text-[#0052CC] cursor-pointer"
+          {!isLoginWindow && (
+            <input
+              className={inputClass}
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              onChange={handleChange}
+              value={authCreds.confirmPassword}
+            />
+          )}
+          <button
+            className={`py-2.5 px-3.5 w-full rounded-md border border-solid border-[#1570EF] shadow-md ${
+              isAuthBtnDisabled ? "bg-[#4c81cb]" : "bg-[#1570EF]"
+            }`}
+            onClick={handleLogin}
+            disabled={isAuthBtnDisabled}
           >
-            {isLoginWindow ? "Create one" : "Log In"}
-          </p>
+            <p className="text-white font-semibold text-sm">
+              {isLoginWindow ? "Login" : "Signup"}
+            </p>
+          </button>
+
+          <div className="flex items-center justify-center gap-1 text-sm font-normal">
+            <p className="text-[#4A5568]">
+              {isLoginWindow
+                ? "Don’t have an account?"
+                : "Already have an account?"}
+            </p>
+            <p
+              onClick={() => setIsLoginWindow(!isLoginWindow)}
+              className="text-[#0052CC] cursor-pointer"
+            >
+              {isLoginWindow ? "Create one" : "Log In"}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
