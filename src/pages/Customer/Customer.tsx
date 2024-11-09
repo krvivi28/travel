@@ -45,10 +45,32 @@ const Customer = () => {
     // More customers...
   ];
 
+  const columns = [
+    { key: "ref", label: "Ref", isSortable: true, isFilterable: true },
+    { key: "customerName", label: "Customer Name", isSortable: true, isFilterable: true },
+    { key: "username", label: "Username", isSortable: true, isFilterable: true },
+    { key: "name", label: "Name", isSortable: true, isFilterable: true },
+    { key: "accountManager", label: "Account Manager", isSortable: true, isFilterable: true },
+    { key: "pax", label: "PAX", isSortable: false, isFilterable: true },
+    { key: "packageInr", label: "Package INR", isSortable: false, isFilterable: true },
+    { key: "travelDate", label: "Travel Date", isSortable: true, isFilterable: true },
+    { key: "createdDate", label: "Created Date", isSortable: true, isFilterable: true },
+  ];
+
+  const handleEdit = (id: number) => {
+    navigate(`/customer/edit/${id}`);
+  };
+
+  const handleView = (id: number) => {
+    navigate(`/customer/view/${id}`);
+  };
+
   return (
     <Table
-      customers={customers}
-      navigate={(id) => navigate(`/customer/${id}`)}
+      data={customers}
+      columns={columns}
+      onEdit={handleEdit}
+      onView={handleView}
     />
   );
 };
