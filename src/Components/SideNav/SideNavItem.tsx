@@ -11,10 +11,10 @@ const SideNavItem: React.FC<IPropsSideNavItem> = ({
   <Link
     to={to}
     className={`flex items-center p-2 rounded-md transition-colors ${
-      isActive ? "bg-primary text-white" : "hover:bg-primary hover:text-white"
+      isActive ? "bg-primary text-white mx-2" : "hover:bg-primary hover:text-white mx-2"
     }`}
   >
-    <div className="text-xl ml-3">{icon}</div>
+    <div className="text-xl ml-1.5">{icon}</div>
     {!isCollapsed && <span className="ml-3">{label}</span>}
   </Link>
 );
