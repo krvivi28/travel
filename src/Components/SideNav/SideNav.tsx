@@ -1,31 +1,37 @@
-import { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { IPropsSideNav } from "./interface";
 import SideNavItem from "./SideNavItem";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
+import { FaSignOutAlt } from "react-icons/fa";
 
 const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const [theme, setTheme] = useState<string | null>(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
-  useEffect(() => {
-    if (theme) {
-      localStorage.setItem("theme", theme);
-    }
-    const localTheme = localStorage.getItem("theme");
-    document.querySelector("html")?.setAttribute("data-theme", localTheme);
-  }, [theme]);
+  // useEffect(() => {
+  //   if (theme) {
+  //     localStorage.setItem("theme", theme);
+  //     document.querySelector("html")?.setAttribute("data-theme", theme);
+  //   }
+  // }, [theme]);
 
   const handleToggle = (e: any) => {
-    if (e.target.checked) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
+    // if (e.target.checked) {
+    //   setTheme("dark");
+    // } else {
+    //   setTheme("light");
+    // }
   };
+
+  const handleLogout = useCallback(() => {
+    localStorage.clear();
+    navigate("/login");
+  }, []);
 
   return (
     <div
@@ -84,6 +90,16 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
           </svg>
         </label>
       </div>
+
+      <button
+        onClick={handleLogout}
+        className={`hover:bg-primary m-2 hover:text-white rounded-md transition-colors`}
+      >
+        <div className="flex items-center gap-2 p-1">
+          <FaSignOutAlt size={20} />
+          {!isCollapsed && <span>Logout</span>}
+        </div>
+      </button>
 
       <Link
         to="/profile"

@@ -15,7 +15,7 @@ export const navData: NavItem[] = [
   { to: "/reward", label: "Reward", icon: <FaGift /> },
   { to: "/price", label: "Price", icon: <FaTag /> },
   { to: "/change-profile", label: "Change Profile", icon: <FaEdit /> },
-  { to: "/logout", label: "Logout", icon: <FaSignOutAlt /> },
+  { to: "/login", label: "Logout", icon: <FaSignOutAlt /> },
 ];
 
 const Layout: React.FC = () => (
