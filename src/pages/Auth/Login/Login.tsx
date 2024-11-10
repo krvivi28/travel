@@ -49,6 +49,14 @@ const Login = () => {
           onChange={(e) => setCreds({ ...creds, password: e.target.value })}
         />
       </div>
+      <div className="flex items-center justify-end w-full">
+        <button
+          onClick={() => navigate("/password/forgot")}
+          className="link text-[#0052CC]"
+        >
+          Forgot Password
+        </button>
+      </div>
       <button
         onClick={handleLogin}
         disabled={
