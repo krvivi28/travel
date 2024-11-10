@@ -7,13 +7,21 @@ import { APIRequestState } from "@src/store/utils";
 import { signup } from "@src/store/slices/auth.slice";
 import { useNavigate } from "react-router-dom";
 
+interface Iuser {
+  agency_name: string;
+  contact_person: string;
+  contact_number: string;
+  email: string;
+  password: string;
+}
+
 const Signup = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [creds, setCreds] = useState({
+  const [creds, setCreds] = useState<Iuser>({
     agency_name: "",
     contact_person: "",
-    contact_number: 0,
+    contact_number: "",
     email: "",
     password: "",
   });
@@ -40,7 +48,7 @@ const Signup = () => {
     } else {
       setPasswordError("");
     }
-  }
+  };
 
   const handleSignup = () => {
     if (passwordError.length === 0) {
@@ -72,10 +80,10 @@ const Signup = () => {
         <Input
           value={creds.contact_number}
           onChange={(e) =>
-            setCreds({ ...creds, contact_number: parseInt(e.target.value) })
+            setCreds({ ...creds, contact_number: e.target.value })
           }
           label="Contact Number"
-          type="number"
+          type="text"
         />
         <Input
           value={creds.email}

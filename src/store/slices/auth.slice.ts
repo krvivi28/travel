@@ -76,7 +76,7 @@ export const signup = createAsyncThunk(
     credentials: {
       agency_name: string;
       contact_person: string;
-      contact_number: number;
+      contact_number: string;
       email: string;
       password: string;
     },
