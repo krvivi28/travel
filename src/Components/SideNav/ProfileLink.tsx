@@ -30,7 +30,7 @@ const ProfileLink: React.FC<ProfileLinkProps> = ({
         ) : (
           <div className="avatar placeholder">
             <div className="bg-neutral text-neutral-content w-12 rounded-full">
-              <span>{agencyName && agencyName[0] + agencyName[0]}</span>
+              <span>{agencyName && agencyName[0] + agencyName[1]}</span>
             </div>
           </div>
         )}
