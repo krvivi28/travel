@@ -70,6 +70,20 @@ const authSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action: PayloadAction<any>) => {
         state.error = action.payload?.response?.data?.message;
         state.status = APIRequestState.ERROR;
+      })
+      .addCase(signup.pending, (state) => {
+        state.status = APIRequestState.LOADING;
+        state.error = null;
+      })
+      .addCase(signup.fulfilled, (state, action: PayloadAction<any>) => {
+        state.agency_details = action.payload.user;
+        state.token = action.payload.token;
+        state.error = null;
+        state.status = APIRequestState.SUCCESS;
+      })
+      .addCase(signup.rejected, (state, action) => {
+        state.error = action.payload;
+        state.status = APIRequestState.ERROR;
       });
   },
 });
@@ -121,6 +135,27 @@ export const resetPassword = createAsyncThunk(
         `${baseURL}/auth/password/reset/${credentials?.token}`,
         creds
       );
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.error || error;
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+export const signup = createAsyncThunk(
+  "auth/signup",
+  async (
+    credentials: {
+      agency_name: string;
+      contact_person: string;
+      contact_number: string;
+      email: string;
+      password: string;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await axios.post(`${baseURL}/auth/signup`, credentials);
       return res.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error || error;
