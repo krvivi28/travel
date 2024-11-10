@@ -38,7 +38,9 @@ const ForgotPassword = () => {
         />
       </div>
 
-      {message && <p className="text-green-600 mt-1">{message}</p>}
+      {disableButton && message && status === APIRequestState.SUCCESS && (
+        <p className="text-green-600 mt-1">{message}</p>
+      )}
 
       <button
         onClick={handleForgetPassword}
@@ -49,6 +51,8 @@ const ForgotPassword = () => {
       >
         {status === APIRequestState.LOADING ? (
           <span className="loading loading-spinner"></span>
+        ) : disableButton ? (
+          "Resend link"
         ) : (
           "Send link"
         )}
