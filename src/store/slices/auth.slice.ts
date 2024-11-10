@@ -79,7 +79,6 @@ export const signup = createAsyncThunk(
       contact_number: number;
       email: string;
       password: string;
-      profileImg: string;
     },
     { rejectWithValue }
   ) => {

@@ -64,7 +64,7 @@ const Login = () => {
       </button>
       {error && <p className="text-red-600 mt-1">{error}</p>}
       <div>
-        <button className="text-sm" onClick={handleSignUp}>
+        <button className="text-sm hover:text-primary" onClick={handleSignUp}>
           Sign Up 
         </button>
       </div>

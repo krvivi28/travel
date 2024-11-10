@@ -1,6 +1,6 @@
 import { Input } from "@src/components";
 import AuthLayout from "../AuthLayout";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@src/store/store";
 import { APIRequestState } from "@src/store/utils";
@@ -8,16 +8,17 @@ import { signup } from "@src/store/slices/auth.slice";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [creds, setCreds] = useState({
     agency_name: "",
     contact_person: "",
-    contact_number: +91,
+    contact_number: 0,
     email: "",
     password: "",
-    profileImg: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const { agency_details, error, status, token } = useSelector(
     (state: RootState) => state.auth
   );
@@ -31,15 +32,25 @@ const Signup = () => {
       navigate("/");
     }
   }, [token, agency_details]);
+
+  const handlePasswordMatch = (e: ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+    if (creds.password !== e.target.value) {
+      setPasswordError("Passwords do not match");
+    } else {
+      setPasswordError("");
+    }
+  }
+
   const handleSignup = () => {
-    dispath(signup(creds));
+    if (passwordError.length === 0) {
+      dispatch(signup(creds));
+    }
   };
 
-  const handleFileChange = () => {};
-
   const handleLogin = () => {
-    navigate('/login');
-  }
+    navigate("/login");
+  };
 
   return (
     <AuthLayout title="Signup-SmartFares">
@@ -78,23 +89,25 @@ const Signup = () => {
           value={creds.password}
           onChange={(e) => setCreds({ ...creds, password: e.target.value })}
         />
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Profile Image</span>
-          </label>
-          <input
-            type="file"
-            name="profileImg"
-            onChange={handleFileChange}
-            value={creds.profileImg}
-            className="file-input file-input-bordered w-full"
-          />
-        </div>
+        <Input
+          label="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => handlePasswordMatch(e)}
+        />
+        {passwordError && <p className="text-red-600 mt-1">{passwordError}</p>}
       </div>
       <button
         onClick={handleSignup}
         disabled={
-          !creds.email || !creds.password || status === APIRequestState.LOADING
+          !creds.email ||
+          !creds.password ||
+          creds.password.length < 4 ||
+          !creds.agency_name ||
+          !creds.contact_number ||
+          !creds.contact_person ||
+          !confirmPassword ||
+          status === APIRequestState.LOADING
         }
         className="btn btn-primary w-full"
       >
@@ -106,8 +119,8 @@ const Signup = () => {
       </button>
       {error && <p className="text-red-600 mt-1">{error}</p>}
       <div>
-        <button className="text-sm" onClick={handleLogin}>
-        Already a user? Login here
+        <button className="text-sm hover:text-primary" onClick={handleLogin}>
+          Already a user? Login here
         </button>
       </div>
     </AuthLayout>

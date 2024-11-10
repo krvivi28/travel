@@ -1,8 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import SideNav from "../components/SideNav/SideNav";
-// import { navData } from "./utils";
-import { FaUser, FaHome, FaWallet, FaCreditCard, FaGift, FaTag, FaEdit, FaSignOutAlt, FaCheckSquare, FaUserCheck } from "react-icons/fa";
+import { FaUser, FaHome, FaWallet, FaCreditCard, FaGift, FaTag, FaEdit, FaCheckSquare, FaUserCheck } from "react-icons/fa";
 import { NavItem } from "../components/SideNav/interface";
 
 export const navData: NavItem[] = [
@@ -15,7 +14,6 @@ export const navData: NavItem[] = [
   { to: "/reward", label: "Reward", icon: <FaGift /> },
   { to: "/price", label: "Price", icon: <FaTag /> },
   { to: "/change-profile", label: "Change Profile", icon: <FaEdit /> },
-  { to: "/login", label: "Logout", icon: <FaSignOutAlt /> },
 ];
 
 const Layout: React.FC = () => (
