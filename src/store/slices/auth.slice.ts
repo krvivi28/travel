@@ -36,6 +36,20 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload;
         state.status = APIRequestState.ERROR;
+      })
+      .addCase(signup.pending, (state) => {
+        state.status = APIRequestState.LOADING;
+        state.error = null;
+      })
+      .addCase(signup.fulfilled, (state, action: PayloadAction<any>) => {
+        state.agency_details = action.payload.user;
+        state.token = action.payload.token;
+        state.error = null;
+        state.status = APIRequestState.SUCCESS;
+      })
+      .addCase(signup.rejected, (state, action) => {
+        state.error = action.payload;
+        state.status = APIRequestState.ERROR;
       });
   },
 });
@@ -48,6 +62,28 @@ export const login = createAsyncThunk(
   ) => {
     try {
       const res = await axios.post(`${baseURL}/auth/login`, credentials);
+      return res.data;
+    } catch (error: any) {
+      const errorMessage = error?.response?.data?.error || error;
+      return rejectWithValue(errorMessage);
+    }
+  }
+);
+
+export const signup = createAsyncThunk(
+  "auth/signup",
+  async (
+    credentials: {
+      agency_name: string;
+      contact_person: string;
+      contact_number: number;
+      email: string;
+      password: string;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const res = await axios.post(`${baseURL}/auth/signup`, credentials);
       return res.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error || error;

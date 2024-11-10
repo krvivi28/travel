@@ -31,7 +31,7 @@ const ChangeProfile: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-base-100 rounded-lg shadow-xl max-w-7xl m-auto">
+    <div className="p-6 bg-base-100 rounded-lg max-w-7xl m-auto">
       <h2 className="text-2xl font-bold mb-6">Agent Profile</h2>
 
       <div className="grid grid-cols-2 gap-4">
