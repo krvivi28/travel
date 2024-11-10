@@ -9,6 +9,8 @@ import Customers from "../pages/Customer/Customer";
 import ChangeProfile from "../pages/ChangeProfile/ChangeProfile";
 import PageNotFound from "../pages/404/PageNotFound";
 import EditTravelPackage from "@src/pages/edit-package";
+import ForgotPassword from "@src/pages/Auth/Forgot-password/ForgotPassword";
+import ResetPassword from "@src/pages/Auth/Reset-password/ResetPassword";
 
 const routes: RouteObject[] = [
   {
@@ -18,6 +20,22 @@ const routes: RouteObject[] = [
   {
     path: "/signup",
     element: isAuthenticated() ? <Navigate to="/" replace /> : <Signup />,
+  },
+  {
+    path: "/password/forgot",
+    element: isAuthenticated() ? (
+      <Navigate to="/" replace />
+    ) : (
+      <ForgotPassword />
+    ),
+  },
+  {
+    path: "/password/reset/:token",
+    element: isAuthenticated() ? (
+      <Navigate to="/" replace />
+    ) : (
+      <ResetPassword />
+    ),
   },
   {
     path: "/",
