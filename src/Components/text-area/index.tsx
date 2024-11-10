@@ -13,7 +13,7 @@ export const TextArea: React.FC<ITextAreaProps> = ({
 }) => (
   <div>
     <label className="label">
-      <span className="label-text text-xl">{label}</span>
+      <span className="label-text">{label}</span>
     </label>
     <textarea
       name={name}

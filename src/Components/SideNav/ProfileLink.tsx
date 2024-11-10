@@ -2,16 +2,14 @@ import { Link, useLocation } from "react-router-dom";
 
 interface ProfileLinkProps {
   isCollapsed: boolean;
-  firstName?: string;
-  lastName?: string;
   imageUrl?: string;
+  agencyName?: string;
 }
 
 const ProfileLink: React.FC<ProfileLinkProps> = ({
   isCollapsed,
   imageUrl,
-  firstName,
-  lastName,
+  agencyName,
 }) => {
   const location = useLocation();
 
@@ -32,7 +30,7 @@ const ProfileLink: React.FC<ProfileLinkProps> = ({
         ) : (
           <div className="avatar placeholder">
             <div className="bg-neutral text-neutral-content w-12 rounded-full">
-              <span>{firstName && lastName && firstName[0] + lastName[0]}</span>
+              <span>{agencyName && agencyName[0] + agencyName[0]}</span>
             </div>
           </div>
         )}

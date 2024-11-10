@@ -2,19 +2,32 @@ import React, { useState } from "react";
 import Button from "../../Components/Button/Button";
 import { Input } from "../../Components/input/index";
 import { TextArea } from "../../Components/text-area/index";
+import FileUpload from "@src/Components/File/FileUpload";
+
+interface UserData {
+  contact_person: string;
+  agency_name: string;
+  email: string;
+  profileImg: { url: string; public_id: string };
+  contact_number: number;
+  password: string;
+}
 
 const ChangeProfile: React.FC = () => {
-  const [formData, setFormData] = useState({
-    contactPersonName: "",
-    username: "b2b@yaronkisawari.com",
-    password: "",
-    companyName: "yaronkisawari holidays",
-    phoneNumber: "6291235923",
-    address: "Darjeeling",
+  const storedData = localStorage.getItem("user");
+  const userData: UserData | null = storedData ? JSON.parse(storedData) : null;
+  const storedDataParsed = {
+    contactPersonName: userData?.contact_person || "",
+    username: userData?.email || "",
+    companyName: userData?.agency_name || "",
+    phoneNumber: userData?.contact_number || "",
+    address: "",
     referredBy: "",
-    uploadLogo: null,
-    uploadDocument: null,
-  });
+    uploadLogo: userData?.profileImg.url || "",
+    uploadDocument: "",
+  };
+
+  const [formData, setFormData] = useState(storedDataParsed);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -30,6 +43,10 @@ const ChangeProfile: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: files ? files[0] : null }));
   };
 
+  // const handleFileUpload = (fileContent: string | ArrayBuffer | null, fileType: string) => {
+  //   setFormData((prev) => ({ ...prev, [fileType]: fileContent }));
+  // };
+
   return (
     <div className="p-6 bg-base-100 rounded-lg max-w-7xl m-auto">
       <h2 className="text-2xl font-bold mb-6">Agent Profile</h2>
@@ -43,6 +60,13 @@ const ChangeProfile: React.FC = () => {
             onChange={handleChange}
           />
 
+          <Input
+            label="Company Name"
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleChange}
+          />
+
           <div className="grid grid-cols-2 gap-4">
             <Input
               label="Username"
@@ -50,22 +74,6 @@ const ChangeProfile: React.FC = () => {
               value={formData.username}
               onChange={handleChange}
               disabled
-            />
-
-            <Input
-              label="Password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              showPasswordToggle
-            />
-
-            <Input
-              label="Company Name"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
             />
 
             <Input
@@ -98,9 +106,7 @@ const ChangeProfile: React.FC = () => {
 
           <div className="form-control mt-4">
             <label className="label">
-              <span className="label-text">
-                Upload Company Document
-              </span>
+              <span className="label-text">Upload Company Document</span>
             </label>
             <input
               type="file"
@@ -109,7 +115,6 @@ const ChangeProfile: React.FC = () => {
               className="file-input file-input-bordered w-full"
             />
           </div>
-
           <Input
             label="Referred by"
             name="referredBy"

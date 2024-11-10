@@ -14,6 +14,16 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
+  interface UserData {
+    agency_name: string;
+    profileImg: { url: string };
+  }
+
+  const storedData = localStorage.getItem("user");
+  const userData: UserData | null = storedData ? JSON.parse(storedData) : null;
+  const agencyName = userData?.agency_name || "";
+  const profileImgUrl = userData?.profileImg.url || "";
+
   useEffect(() => {
     if (theme) {
       localStorage.setItem("theme", theme);
@@ -80,7 +90,7 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
         </label>
       </div>
 
-      <ProfileLink isCollapsed={isCollapsed} />
+      <ProfileLink isCollapsed={isCollapsed}  agencyName={agencyName}/>
     </div>
   );
 };
