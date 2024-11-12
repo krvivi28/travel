@@ -31,6 +31,10 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
     }
   }, [theme]);
 
+  // useEffect(() => {   //TODO fix 
+
+  // }, [profileImgUrl])
+
   const handleToggle = (e: any) => {
     setTheme(e.target.checked ? "dark" : "light");
   };

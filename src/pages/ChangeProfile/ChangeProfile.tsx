@@ -66,12 +66,16 @@ const ChangeProfile: React.FC = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+          const profileImageData = {
+            url: data.url,
+            public_id: data.public_id,
+          };
           localStorage.setItem(
             "user",
-            JSON.stringify({ ...userData, profileImg: data })
+            JSON.stringify({ ...userData, profileImg: profileImageData })
           );
-          setFormData((prev) => ({ ...prev, profileImg: data.url }));
-          dispatch(updateProfile({ ...formData, profileImg: data.url }));
+          setFormData((prev) => ({ ...prev, profileImg: profileImageData }));
+          dispatch(updateProfile({ ...formData, profileImg: profileImageData }));
         })
         .catch((err) => console.error("Error uploading image", err));
     }
@@ -88,7 +92,7 @@ const ChangeProfile: React.FC = () => {
     <div className="p-6 bg-base-100 rounded-lg max-w-7xl m-auto">
       <h2 className="text-2xl font-bold mb-6">Agent Profile</h2>
 
-      <div className="flex justify-center mb-4">
+      <div className="flex mb-4">
         <div onClick={handleImageClick} className="cursor-pointer">
           {formData.profileImg.url ? (
             <img
@@ -98,7 +102,7 @@ const ChangeProfile: React.FC = () => {
             />
           ) : (
             <div className="avatar placeholder">
-              <div className="bg-neutral text-neutral-content w-12 rounded-full">
+              <div className="w-24 h-24 bg-neutral text-neutral-content rounded-full">
                 <span>{formData.agency_name && formData.agency_name[0] + formData.agency_name[1]}</span>
               </div>
             </div>
@@ -155,8 +159,11 @@ const ChangeProfile: React.FC = () => {
           />
         </div>
 
-        <div className="space-y-4">
+        <div>
+          <div className="relative top-[99px]">
+          <label className="flex justify-center mb-[-15px] text-sm">Upload Company Document</label>
           <FileUpload onFileUpload={handleFileUpload} />
+          </div>
         </div>
       </div>
 

@@ -196,7 +196,16 @@ export const updateProfile = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const res = await axios.put(`${baseURL}/auth/profile/update`, data);
+      const token = localStorage.getItem("token");
+      const res = await axios.put(
+        `${baseURL}/auth/profile/update`,
+        data,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       return res.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error || error;
