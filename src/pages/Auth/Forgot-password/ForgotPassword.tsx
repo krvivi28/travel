@@ -1,30 +1,45 @@
 import { Input } from "@src/components";
-
 import AuthLayout from "../AuthLayout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@src/store/store";
 import { APIRequestState } from "@src/store/utils";
 import { forgotPassword } from "@src/store/slices/auth.slice";
 
 const ForgotPassword = () => {
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [disableButton, setDisableButton] = useState(false);
+  const [countdown, setCountdown] = useState(0);
   const [creds, setCreds] = useState({ email: "" });
   const { message, error, status } = useSelector(
     (state: RootState) => state.auth
   );
 
-  let timer: NodeJS.Timeout;
-  const handleForgetPassword = () => {
-    if (!disableButton) {
-      dispath(forgotPassword(creds));
-    }
-    clearTimeout(timer);
-    setDisableButton(true);
-    timer = setTimeout(() => {
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (countdown > 0) {
+      timer = setTimeout(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    } else {
       setDisableButton(false);
-    }, 60 * 1000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [countdown]);
+
+  useEffect(() => {
+    if (status === APIRequestState.SUCCESS) {
+      setCountdown(60);
+      setDisableButton(true);
+    }
+  }, [status]);
+
+  const handleForgetPassword = () => {
+    if (!disableButton && creds.email) {
+      dispatch(forgotPassword(creds));
+    }
   };
 
   return (
@@ -38,9 +53,10 @@ const ForgotPassword = () => {
         />
       </div>
 
-      {disableButton && message && status === APIRequestState.SUCCESS && (
+      {message && status === APIRequestState.SUCCESS && (
         <p className="text-green-600 mt-1">{message}</p>
       )}
+      {error && <p className="text-red-600 mt-1">{error}</p>}
 
       <button
         onClick={handleForgetPassword}
@@ -49,13 +65,12 @@ const ForgotPassword = () => {
       >
         {status === APIRequestState.LOADING ? (
           <span className="loading loading-spinner"></span>
-        ) : disableButton ? (
-          "Resend link"
+        ) : countdown > 0 ? (
+          `Resend link in ${countdown}s`
         ) : (
           "Send link"
         )}
       </button>
-      {error && <p className="text-red-600 mt-1">{error}</p>}
     </AuthLayout>
   );
 };
