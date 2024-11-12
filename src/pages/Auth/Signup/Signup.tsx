@@ -61,8 +61,8 @@ const Signup = () => {
   };
 
   return (
-    <AuthLayout title="Signup-SmartFares">
-      <div className="w-full flex flex-col">
+    <AuthLayout width="md" title="Signup-SmartFares">
+      <div className="w-full grid md:grid-cols-2 gap-2">
         <Input
           value={creds.agency_name}
           onChange={(e) => setCreds({ ...creds, agency_name: e.target.value })}
@@ -114,8 +114,7 @@ const Signup = () => {
           !creds.agency_name ||
           !creds.contact_number ||
           !creds.contact_person ||
-          !confirmPassword ||
-          status === APIRequestState.LOADING
+          !confirmPassword
         }
         className="btn btn-primary w-full"
       >

@@ -60,9 +60,7 @@ const ForgotPassword = () => {
 
       <button
         onClick={handleForgetPassword}
-        disabled={
-          !creds.email || status === APIRequestState.LOADING || disableButton
-        }
+        disabled={!creds.email || disableButton}
         className="btn btn-primary w-full"
       >
         {status === APIRequestState.LOADING ? (
