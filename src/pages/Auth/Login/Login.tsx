@@ -16,6 +16,8 @@ const Login = () => {
     (state: RootState) => state.auth
   );
 
+  console.log(error);
+
   useEffect(() => {
     if (agency_details) {
       localStorage.setItem("user", JSON.stringify(agency_details));
@@ -30,8 +32,8 @@ const Login = () => {
   };
 
   const handleSignUp = () => {
-    navigate('/signup');
-  }
+    navigate("/signup");
+  };
 
   return (
     <AuthLayout title="Login-SmartFares">
@@ -59,9 +61,7 @@ const Login = () => {
       </div>
       <button
         onClick={handleLogin}
-        disabled={
-          !creds.email || !creds.password || status === APIRequestState.LOADING
-        }
+        disabled={!creds.email || !creds.password}
         className="btn btn-primary w-full"
       >
         {status === APIRequestState.LOADING ? (
@@ -73,7 +73,7 @@ const Login = () => {
       {error && <p className="text-red-600 mt-1">{error}</p>}
       <div>
         <button className="text-sm hover:text-primary" onClick={handleSignUp}>
-          Sign Up 
+          Sign Up
         </button>
       </div>
     </AuthLayout>
