@@ -89,6 +89,7 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
       </div>
 
       <ProfileLink isCollapsed={isCollapsed}  imageUrl={profileImgUrl} agencyName={agencyName}/>
+
     </div>
   );
 };

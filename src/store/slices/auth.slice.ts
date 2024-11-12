@@ -56,6 +56,21 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.status = APIRequestState.ERROR;
       })
+      .addCase(resetPassword.pending, (state) => {
+        state.status = APIRequestState.LOADING;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state, action: PayloadAction<any>) => {
+        state.message = action.payload.message;
+        state.agency_details = action.payload.user;
+        state.token = action.payload.token;
+        state.error = null;
+        state.status = APIRequestState.SUCCESS;
+      })
+      .addCase(resetPassword.rejected, (state, action: PayloadAction<any>) => {
+        state.error = action.payload?.response?.data?.message;
+        state.status = APIRequestState.ERROR;
+      })
       .addCase(signup.pending, (state) => {
         state.status = APIRequestState.LOADING;
         state.error = null;
@@ -82,21 +97,6 @@ const authSlice = createSlice({
       })
       .addCase(updateProfile.rejected, (state, action) => {
         state.error = action.payload;
-        state.status = APIRequestState.ERROR;
-      })
-      .addCase(resetPassword.pending, (state) => {
-        state.status = APIRequestState.LOADING;
-        state.error = null;
-      })
-      .addCase(resetPassword.fulfilled, (state, action: PayloadAction<any>) => {
-        state.message = action.payload.message;
-        state.agency_details = action.payload.user;
-        state.token = action.payload.token;
-        state.error = null;
-        state.status = APIRequestState.SUCCESS;
-      })
-      .addCase(resetPassword.rejected, (state, action: PayloadAction<any>) => {
-        state.error = action.payload?.response?.data?.message;
         state.status = APIRequestState.ERROR;
       });
   },
@@ -158,7 +158,6 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
-
 export const signup = createAsyncThunk(
   "auth/signup",
   async (
