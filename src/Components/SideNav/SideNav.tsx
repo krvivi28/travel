@@ -22,7 +22,7 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
   const storedData = localStorage.getItem("user");
   const userData: UserData | null = storedData ? JSON.parse(storedData) : null;
   const agencyName = userData?.agency_name || "";
-  const profileImgUrl = userData?.profileImg.url || "";
+  const profileImgUrl = userData?.profileImg?.url || "";
 
   useEffect(() => {
     if (theme) {
@@ -90,7 +90,7 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
         </label>
       </div>
 
-      <ProfileLink isCollapsed={isCollapsed}  agencyName={agencyName}/>
+      <ProfileLink isCollapsed={isCollapsed}  imageUrl={profileImgUrl} agencyName={agencyName}/>
     </div>
   );
 };

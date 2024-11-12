@@ -20,10 +20,6 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: {
-      "application/json": [".geojson"],
-      "application/vnd.google-earth.kml+xml": [".kml"],
-    },
   });
 
   return (
