@@ -42,7 +42,7 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
 
   return (
     <div
-      className={`h-screen drawer ${theme === 'light' ? "bg-slate-200" : ""} shadow-lg ${
+      className={`h-screen drawer ${theme === "light" ? "bg-gray-200 text-black" : "bg-slate-800"} shadow-lg ${
         isCollapsed ? "w-16" : "w-64"
       } transition-all duration-300 flex flex-col justify-between`}
     >
@@ -57,7 +57,6 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
             <FiChevronLeft size={20} />
           )}
         </button>
-
         <div className="flex flex-col gap-2 mt-4">
           {data.map((item, index) => (
             <SideNavItem
@@ -77,7 +76,6 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
             {!isCollapsed && <span className="ml-3">Logout</span>}
           </button>
         </div>
-
         <label
           className={`swap swap-rotate p-1 rounded-md transition-colors ${"hover:bg-primary hover:text-white m-2"}`}
         >
@@ -86,7 +84,7 @@ const SideNav: React.FC<IPropsSideNav> = ({ data }) => {
             onChange={handleToggle}
             checked={theme === "light" ? false : true}
           />
-           <ThemeToggleIcons />
+          <ThemeToggleIcons />
         </label>
       </div>
 

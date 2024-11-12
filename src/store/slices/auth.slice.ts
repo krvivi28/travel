@@ -36,7 +36,7 @@ const authSlice = createSlice({
         state.status = APIRequestState.SUCCESS;
       })
       .addCase(login.rejected, (state, action: PayloadAction<any>) => {
-        state.error = action.payload?.response?.data?.message;
+        state.error = action.payload;
         state.status = APIRequestState.ERROR;
       })
       .addCase(forgotPassword.pending, (state) => {
@@ -112,6 +112,8 @@ export const login = createAsyncThunk(
       const res = await axios.post(`${baseURL}/auth/login`, credentials);
       return res.data;
     } catch (error: any) {
+      console.log(error);
+      debugger;
       const errorMessage = error?.response?.data?.error || error;
       return rejectWithValue(errorMessage);
     }
