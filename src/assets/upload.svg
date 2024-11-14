@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg fill="#000000" version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-	 width="800px" height="800px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g>
-	<path d="M2,48h22c1.104,0,2-0.896,2-2s-0.896-2-2-2H4V4h17.171l7.415,7.414C28.961,11.789,29.47,12,30,12h30v32H40
-		c-1.104,0-2,0.896-2,2s0.896,2,2,2h22c1.104,0,2-0.896,2-2V10c0-1.104-0.896-2-2-2H30.829l-7.415-7.414C23.039,0.211,22.53,0,22,0
-		H2C0.896,0,0,0.896,0,2v44C0,47.104,0.896,48,2,48z"/>
-	<path d="M32,64c1.104,0,2-0.896,2-2V34.827l4.588,4.587C38.978,39.805,39.49,40,40.002,40s1.024-0.195,1.414-0.586
-		c0.781-0.781,0.781-2.047,0-2.828l-8-8c-0.78-0.781-2.048-0.781-2.828,0l-8,8c-0.781,0.781-0.781,2.047,0,2.828
-		c0.78,0.781,2.048,0.781,2.828,0L30,34.831V62C30,63.104,30.896,64,32,64z"/>
+<svg width="45" height="44" viewBox="0 0 45 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_9472_2186)">
+<path d="M3 9C3 4.85786 6.35786 1.5 10.5 1.5H34.5C38.6421 1.5 42 4.85786 42 9V33C42 37.1421 38.6421 40.5 34.5 40.5H10.5C6.35786 40.5 3 37.1421 3 33V9Z" stroke="#EAECF0" shape-rendering="crispEdges"/>
+<path d="M19.1667 24.3333L22.5001 21M22.5001 21L25.8334 24.3333M22.5001 21V28.5M29.1667 24.9524C30.1847 24.1117 30.8334 22.8399 30.8334 21.4167C30.8334 18.8854 28.7814 16.8333 26.2501 16.8333C26.068 16.8333 25.8976 16.7383 25.8052 16.5814C24.7185 14.7374 22.7121 13.5 20.4167 13.5C16.965 13.5 14.1667 16.2982 14.1667 19.75C14.1667 21.4718 14.863 23.0309 15.9892 24.1613" stroke="#57606A" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
+<defs>
+<filter id="filter0_d_9472_2186" x="0.5" y="0" width="44" height="44" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0627451 0 0 0 0 0.0941176 0 0 0 0 0.156863 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_9472_2186"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_9472_2186" result="shape"/>
+</filter>
+</defs>
 </svg>
