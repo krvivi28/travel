@@ -1,45 +1,51 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import upload from "../../assets/upload.svg"
-
-interface FileUploadProps {
-  onFileUpload: (content: string | ArrayBuffer | null, fileType: string) => void;
+import upload from "../../assets/upload.svg";
+interface DroppableFileInputProps {
+  onFileDrop: (files: File[]) => void;
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
-  const onDrop = (acceptedFiles: File[]) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const content = reader.result;
-        onFileUpload(content, file.type);
-      };
-      reader.readAsText(file);
+const DroppableFileInput: React.FC<DroppableFileInputProps> = ({
+  onFileDrop,
+  disabled = false,
+  isLoading = false,
+}) => {
+  const { getRootProps, getInputProps, isDragActive, isDragReject } =
+    useDropzone({
+      onDrop: onFileDrop,
+      disabled,
     });
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-  });
 
   return (
     <div
       {...getRootProps()}
-      className="flex py-4 relative top-8 px-6 rounded-lg flex-col items-center gap-1 border border-[#EAECF0] bg-white"
+      className={`border-2 border-dashed rounded-lg px-1 py-10 text-center flex flex-col gap-2 items-center justify-center cursor-pointer 
+        ${disabled ? "bg-gray-200 cursor-not-allowed" : "bg-white"}
+        ${isDragActive ? "border-blue-500 bg-slate-50" : "border-gray-300"}
+        ${isDragReject ? "border-red-500" : ""}`}
     >
       <input {...getInputProps()} />
-      <img className="h-10" src={upload} alt="Upload Icon" />
-      <p className="text-sm text-[#475467] hover:cursor-pointer">
-        Drag 'n' drop some files here, or{" "}
-        <span className="font-semibold text-[#175CD3]">
-          click to select files
-        </span>{" "}
-      </p>
-      <p className="font-normal text-xs text-[#475467]">
-        Only pdf, docx, png and jpg files will be accepted
-      </p>
+      <div>
+        {isLoading ? (
+          <span className="loading loading-spinner"></span>
+        ) : (
+          <img src={upload} alt="" />
+        )}
+      </div>
+      {isDragReject ? (
+        <p className="text-red-500">Unsupported file type</p>
+      ) : isDragActive ? (
+        <p className="text-blue-500">Drop the files here...</p>
+      ) : (
+        <p className="text-sm font-semibold">
+          {disabled ? "File upload disabled" : "Drag and drop files here,"}{" "}
+          <span className="text-blue-700"> or click to select files</span>
+        </p>
+      )}
     </div>
   );
 };
 
-export default FileUpload;
+export default DroppableFileInput;

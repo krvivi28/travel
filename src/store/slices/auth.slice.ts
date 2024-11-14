@@ -84,20 +84,6 @@ const authSlice = createSlice({
       .addCase(signup.rejected, (state, action) => {
         state.error = action.payload;
         state.status = APIRequestState.ERROR;
-      })
-      .addCase(updateProfile.pending, (state) => {
-        state.status = APIRequestState.LOADING;
-        state.error = null;
-      })
-      .addCase(updateProfile.fulfilled, (state, action: PayloadAction<any>) => {
-        state.agency_details = action.payload.user;
-        state.token = action.payload.token;
-        state.error = null;
-        state.status = APIRequestState.SUCCESS;
-      })
-      .addCase(updateProfile.rejected, (state, action) => {
-        state.error = action.payload;
-        state.status = APIRequestState.ERROR;
       });
   },
 });
@@ -112,8 +98,6 @@ export const login = createAsyncThunk(
       const res = await axios.post(`${baseURL}/auth/login`, credentials);
       return res.data;
     } catch (error: any) {
-      console.log(error);
-      debugger;
       const errorMessage = error?.response?.data?.error || error;
       return rejectWithValue(errorMessage);
     }
@@ -172,40 +156,6 @@ export const signup = createAsyncThunk(
   ) => {
     try {
       const res = await axios.post(`${baseURL}/auth/signup`, credentials);
-      return res.data;
-    } catch (error: any) {
-      const errorMessage = error?.response?.data?.error || error;
-      return rejectWithValue(errorMessage);
-    }
-  }
-);
-
-export const updateProfile = createAsyncThunk(
-  "auth/profile/update",
-  async (
-    data: {
-      agency_name: string;
-      contact_person: string;
-      contact_number: string;
-      email: string;
-      address: string;
-      ref_by: string;
-      profileImg: Object;
-      uploadDocument: Object;
-    },
-    { rejectWithValue }
-  ) => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.put(
-        `${baseURL}/auth/profile/update`,
-        data,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
       return res.data;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error || error;
