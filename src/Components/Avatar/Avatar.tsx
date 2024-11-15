@@ -1,4 +1,6 @@
 import React, { useRef, useState } from "react";
+import bluetick from "@src/assets/icons/bluetick.svg";
+import offline from "@src/assets/icons/offline.svg";
 
 interface IAvatar {
   url?: string;
@@ -20,22 +22,26 @@ const Avatar: React.FC<IAvatar> = ({
   };
 
   return (
-    <div className="flex mb-4">
-      <div
-        onClick={onClick}
-        className={`cursor-pointer ${url ? avatarClass.image : avatarClass.name} ${tooltipText && "tooltip tooltip-right"}`}
-        data-tip={tooltipText ? tooltipText : ""}
-      >
-        {url ? (
+    <div
+      onClick={onClick}
+      className={`cursor-pointer relative ${url ? avatarClass.image : avatarClass.name} ${tooltipText && "tooltip tooltip-right"}`}
+      data-tip={tooltipText ? tooltipText : ""}
+    >
+      <div className="w-24 h-24 rounded-full bg-neutral overflow-hidden">
+        {(isVerified === false || isVerified === true) && (
           <img
-            src={url}
-            alt="Profile"
-            className="w-24 h-24 rounded-full object-cover"
+            style={{ width: "20px", height: "20px" }}
+            className="absolute left-[68px] bottom-[2px] z-10"
+            src={isVerified ? bluetick : offline}
           />
+        )}
+
+        {url ? (
+          <img src={url} alt="Profile" className="object-covers" />
         ) : (
-          <div className="w-24 h-24 bg-neutral text-4xl text-neutral-content rounded-full">
-            <span>{name && (name[0] + name[1]).toUpperCase()}</span>
-          </div>
+          <span className="text-4xl text-neutral-content">
+            {name && (name[0] + name[1]).toUpperCase()}
+          </span>
         )}
       </div>
     </div>

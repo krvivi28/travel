@@ -23,6 +23,7 @@ interface IUserData {
 }
 const ChangeProfile: React.FC = () => {
   const dispatch = useAppDispatch();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     data: fileData,
@@ -48,7 +49,6 @@ const ChangeProfile: React.FC = () => {
     address: "",
     ref_by: "",
   });
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setUserData({
@@ -63,32 +63,36 @@ const ChangeProfile: React.FC = () => {
 
   useEffect(() => {
     if (fileData) {
-      if (isProfileAvatarUploading) {
-        dispatch(
-          updateUserDetails({
-            profileImg: {
-              public_id: (fileData as any)?.public_id,
-              url: (fileData as any)?.url,
-            },
-          } as any)
-        );
-      } else {
-        dispatch(
-          updateUserDetails({
-            document: {
-              public_id: (fileData as any)?.public_id,
-              url: (fileData as any)?.url,
-            },
-          } as any)
-        );
-      }
+      isProfileAvatarUploading
+        ? dispatch(
+            updateUserDetails({
+              profileImg: {
+                public_id: (fileData as any)?.public_id,
+                url: (fileData as any)?.url,
+              },
+            } as any)
+          )
+        : dispatch(
+            updateUserDetails({
+              document: {
+                public_id: (fileData as any)?.public_id,
+                url: (fileData as any)?.url,
+              },
+            } as any)
+          );
     }
   }, [fileData]);
 
   useEffect(() => {
     if (action === "update")
       toast.success("Profile Updated Successfully!", { duration: 5000 });
-  }, [action]);
+    if (!userDetails?.isVerified && action === "fetch") {
+      toast.error(
+        "Profile under verification, make sure to update required documents and details.",
+        { duration: 10000 }
+      );
+    }
+  }, [action, JSON.stringify(userDetails)]);
 
   const uploadFile = (file: File) => {
     const data = new FormData();
@@ -133,7 +137,16 @@ const ChangeProfile: React.FC = () => {
             url={userDetails?.profileImg?.url}
             tooltipText="click to edit"
             name={userData?.agency_name}
+            isVerified={userDetails?.isVerified}
           />
+          {isFileUploading === APIRequestState.LOADING &&
+            isProfileAvatarUploading && (
+              <div className="flex gap-1 items-center">
+                <span className="loading loading-spinner text-black"></span>
+                <span className="text-green-600"> upload in progress...</span>
+              </div>
+            )}
+
           <Input
             label="Company Name"
             name="agency_name"
@@ -189,12 +202,10 @@ const ChangeProfile: React.FC = () => {
             onClick={handleProfileUpdate}
             className="btn btn-primary w-full mt-3"
           >
-            {(isFileUploading === APIRequestState.LOADING ||
-              isUserDetailsLoading === APIRequestState.LOADING) && (
+            {isUserDetailsLoading === APIRequestState.LOADING && (
               <span className="loading loading-spinner"></span>
             )}
-            {isFileUploading === APIRequestState.LOADING ||
-            isUserDetailsLoading === APIRequestState.LOADING
+            {isUserDetailsLoading === APIRequestState.LOADING
               ? "Updating..."
               : "Update Profile"}
           </button>
@@ -207,7 +218,10 @@ const ChangeProfile: React.FC = () => {
           )}
           <div className="">
             <FileUpload
-              isLoading={isFileUploading === APIRequestState.LOADING}
+              isLoading={
+                isFileUploading === APIRequestState.LOADING &&
+                !isProfileAvatarUploading
+              }
               onFileDrop={onFileDrop}
             />
           </div>
