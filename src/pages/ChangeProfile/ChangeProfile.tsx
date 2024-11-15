@@ -143,7 +143,7 @@ const ChangeProfile: React.FC = () => {
             isProfileAvatarUploading && (
               <div className="flex gap-1 items-center">
                 <span className="loading loading-spinner text-black"></span>
-                <span className="text-green-600"> upload in progress...</span>
+                <span className="text-green-600"> update in progress...</span>
               </div>
             )}
 
