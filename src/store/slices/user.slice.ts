@@ -74,10 +74,11 @@ export const getUserDetails = createAsyncThunk("get-user-details", async () => {
     const res = await axios.get(`${baseURL}/auth/details`, {
       headers: getHeader(),
     });
-    toast.error(
-      "Profile under verification, make sure to update required documents and details.",
-      { duration: 5000 }
-    );
+    if (!res.data.userDetails?.isVerified)
+      toast.error(
+        "Profile under verification, make sure to update required documents and details.",
+        { duration: 5000 }
+      );
     return res.data.userDetails;
   } catch (error: any) {
     const errorMessage = error?.response?.data?.error || error;
