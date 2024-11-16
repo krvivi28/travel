@@ -21,7 +21,7 @@ interface IUserData {
   address: string;
   ref_by: string;
 }
-const ChangeProfile: React.FC = () => {
+const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -83,17 +83,6 @@ const ChangeProfile: React.FC = () => {
     }
   }, [fileData]);
 
-  useEffect(() => {
-    if (action === "update")
-      toast.success("Profile Updated Successfully!", { duration: 5000 });
-    if (!userDetails?.isVerified && action === "fetch") {
-      toast.error(
-        "Profile under verification, make sure to update required documents and details.",
-        { duration: 10000 }
-      );
-    }
-  }, [action, JSON.stringify(userDetails)]);
-
   const uploadFile = (file: File) => {
     const data = new FormData();
     data.append("file", file);
@@ -143,7 +132,7 @@ const ChangeProfile: React.FC = () => {
             isProfileAvatarUploading && (
               <div className="flex gap-1 items-center">
                 <span className="loading loading-spinner text-black"></span>
-                <span className="text-green-600"> update in progress...</span>
+                <span className="text-blue-600"> updating...</span>
               </div>
             )}
 
@@ -231,4 +220,4 @@ const ChangeProfile: React.FC = () => {
   );
 };
 
-export default ChangeProfile;
+export default Profile;

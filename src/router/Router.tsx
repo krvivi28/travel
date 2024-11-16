@@ -6,7 +6,7 @@ import Home from "../pages/Home/Home";
 import Layout from "./Layout";
 import ProtectedRoute from "./ProtectedRoute";
 import Customers from "../pages/Customer/Customer";
-import ChangeProfile from "../pages/ChangeProfile/ChangeProfile";
+import Profile from "../pages/ChangeProfile/Profile";
 import PageNotFound from "../pages/404/PageNotFound";
 import EditTravelPackage from "@src/pages/edit-package";
 import ForgotPassword from "@src/pages/Auth/Forgot-password/ForgotPassword";
@@ -57,7 +57,7 @@ const routes: RouteObject[] = [
           },
         ],
       },
-      { path: "change-profile", element: <ChangeProfile /> },
+      { path: "profile", element: <Profile /> },
     ],
   },
 ];

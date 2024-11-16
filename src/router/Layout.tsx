@@ -29,7 +29,7 @@ export const navData: NavItem[] = [
   { to: "/payment", label: "Payment", icon: <FaCreditCard /> },
   { to: "/reward", label: "Reward", icon: <FaGift /> },
   { to: "/price", label: "Price", icon: <FaTag /> },
-  { to: "/change-profile", label: "Change Profile", icon: <FaEdit /> },
+  { to: "/profile", label: "Profile", icon: <FaEdit /> },
 ];
 
 const Layout: React.FC = () => {

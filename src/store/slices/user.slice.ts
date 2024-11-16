@@ -4,7 +4,7 @@ import { IUser } from "./interfaces";
 import axios from "axios";
 import { baseURL } from "@src/constants/api";
 import { getHeader } from "@src/utils/api";
-
+import toast from "react-hot-toast";
 interface IState {
   userDetails: null | IUser;
   isUserDetailsLoading: APIRequestState;
@@ -74,6 +74,10 @@ export const getUserDetails = createAsyncThunk("get-user-details", async () => {
     const res = await axios.get(`${baseURL}/auth/details`, {
       headers: getHeader(),
     });
+    toast.error(
+      "Profile under verification, make sure to update required documents and details.",
+      { duration: 5000 }
+    );
     return res.data.userDetails;
   } catch (error: any) {
     const errorMessage = error?.response?.data?.error || error;
@@ -88,6 +92,7 @@ export const updateUserDetails = createAsyncThunk(
       const res = await axios.put(`${baseURL}/auth/profile/update`, data, {
         headers: getHeader(),
       });
+      toast.success("Profile Updated Successfully!", { duration: 5000 });
       return res.data.updatedUserDetails;
     } catch (error: any) {
       const errorMessage = error?.response?.data?.error || error;
